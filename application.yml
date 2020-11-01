@@ -1,4 +1,4 @@
 spring:
   data:
     mongodb:
-      uri: mongodb+srv://<username>:<password>@ieti-dzkk5.mongodb.net/test?retryWrites=true&w=majority
+      uri: mongodb+srv://test:test@cluster0.2xxny.mongodb.net/IETI-LAB2?authSource=admin&replicaSet=atlas-8zzq0v-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true
