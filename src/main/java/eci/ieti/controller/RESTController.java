@@ -2,6 +2,7 @@ package eci.ieti.controller;
 
 
 import com.mongodb.client.gridfs.model.GridFSFile;
+import eci.ieti.data.TodoRepository;
 import eci.ieti.data.model.Todo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -24,6 +25,9 @@ public class RESTController {
 
     @Autowired
     private GridFsTemplate files;
+
+    @Autowired
+    private TodoRepository todoRepository;
 
 
    //TODO inject components (TodoRepository and GridFsTemplate)
@@ -52,15 +56,15 @@ public class RESTController {
     @CrossOrigin("*")
     @PostMapping("/todo")
     public Todo createTodo(@RequestBody Todo todo) {
-        //TODO implement method
-        return null;
+        todoRepository.save(todo);
+        return todo;
     }
 
     @CrossOrigin("*")
     @GetMapping("/todo")
     public List<Todo> getTodoList() {
         //TODO implement method
-        return null;
+        return todoRepository.findAll();
     }
 
 }
