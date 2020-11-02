@@ -49,7 +49,7 @@ public class RESTController {
     @CrossOrigin("*")
     @PostMapping("/files")
     public String handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) throws IOException {
-        files.store(file.getInputStream(),file.getName(),file.getContentType());
+        files.store(file.getInputStream(),file.getOriginalFilename(),file.getContentType());
         return "OK";
     }
 

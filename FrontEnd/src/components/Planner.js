@@ -81,6 +81,7 @@ function Planner(props) {
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [closeSesion,setCloseSesion] = React.useState(false);
+  const [file,setFile] = React.useState(null);
   const [openModal,setOpenModal] = React.useState(false);
   const [filter,setFilter] = React.useState("Ready");
   const [nameFilter,setNameFilter] = React.useState("");
@@ -89,10 +90,7 @@ function Planner(props) {
   const [tasks,setTasks] = React.useState([]);
 
   var updateView = ()=>{
-    /*fetch("https://murmuring-scrubland-22576.herokuapp.com/api/task",{
-      headers:{"Authorization":"Bearer "+localStorage.getItem("token")}
-    })*/
-    Axios.get("https://murmuring-scrubland-22576.herokuapp.com/api/task",{
+    Axios.get("http://localhost:8080/api/todo",{
       headers:{"Authorization":"Bearer "+localStorage.getItem("token")}
     })
     .then((data)=>{
@@ -137,7 +135,7 @@ function Planner(props) {
         headers:{"Content-Type":"application/json","Authorization":"Bearer "+localStorage.getItem("token")},
         mode:"cors"
       })*/
-      Axios.post("https://murmuring-scrubland-22576.herokuapp.com/api/task",task,{
+      Axios.post("http://localhost:8080/api/todo",task,{
         headers:{"Content-Type":"application/json","Authorization":"Bearer "+localStorage.getItem("token")}
       })
       .then(resp => resp.text()).then(()=>{
@@ -196,6 +194,7 @@ function Planner(props) {
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
+            <br></br>
             <div className={classes2.div}>
               Email: <TextField type="text" value={nameFilter} onChange={(e)=>setNameFilter(e.target.value)}></TextField>
               Status: <Select value={filter} onChange={(e)=> setFilter(e.target.value)}>
@@ -209,7 +208,9 @@ function Planner(props) {
               {!applyFilter && tasks.map((data)=><CardItem status={data.status}
                 people = {data.responsible.email}
                 description={data.description}
-                date={data.dueDate}/>)}
+                date={data.dueDate}
+                img={data.fileUrl}
+                />)}
                 {applyFilter && showFilter(nameFilter,filter,dateFilter,tasks)}
                 </div>
             <div style={{width:'100%',height:'70px',textAlign:'right'}}>
@@ -236,7 +237,9 @@ function showFilter(email,status,date,data){
         li.push(<CardItem status={item.status}
         people = {item.responsible.email}
         description={item.description}
-        date={item.dueDate}/>);
+        date={item.dueDate}
+        img={item.fileUrl}
+        />);
       }
     });
     return li;

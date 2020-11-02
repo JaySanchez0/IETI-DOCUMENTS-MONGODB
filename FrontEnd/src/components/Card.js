@@ -41,6 +41,7 @@ export default function CardItem(props) {
       <React.Fragment>
     <Card className={classes.card}>
       <CardContent>
+        <center><img src={props.img} style={{width:"200px",height:"200px"}}></img></center>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
          <CheckCircleOutlineIcon style={{color:'green'}}></CheckCircleOutlineIcon> {props.status}
         </Typography>
